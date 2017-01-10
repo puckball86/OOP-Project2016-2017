@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.BevelBorder;
 
 /**
@@ -29,6 +30,7 @@ public class AppWindow {
 	private String name;
 	private AppSummary ap;
 	private JTable table = new JTable();
+	private JScrollPane tableScroller = null;
 
 	public AppWindow(){
 		/**
@@ -80,6 +82,11 @@ public class AppWindow {
         });
 		
 		JButton btnOther = new JButton("Calculate Stability");
+		btnOther.setToolTipText("Calculate Stability");
+		btnOther.setPreferredSize(new java.awt.Dimension(150, 30));
+		btnOther.setMaximumSize(new java.awt.Dimension(150, 30));
+		btnOther.setMargin(new java.awt.Insets(2, 2, 2, 2));
+		btnOther.setMinimumSize(new java.awt.Dimension(150, 30));
 		
 		top.add(txtFileName);
         top.add(btnChooseFile);
@@ -87,58 +94,52 @@ public class AppWindow {
         frame.getContentPane().add(top); //Add the panel to the window
         
         JPanel mid = new JPanel(new FlowLayout(FlowLayout.LEADING));
-        mid.add(table);
-        table.setPreferredSize(new java.awt.Dimension(690, 300));
-        table.setMaximumSize(new java.awt.Dimension(690, 300));
-        table.setMinimumSize(new java.awt.Dimension(690, 300));
-        
         mid.setBorder(new BevelBorder(BevelBorder.RAISED));
         mid.setPreferredSize(new java.awt.Dimension(730, 300));
         mid.setMaximumSize(new java.awt.Dimension(730, 300));
         mid.setMinimumSize(new java.awt.Dimension(730, 300));
-        
-		frame.getContentPane().add(mid);
+        		
 		
-		
-		btnOther.setToolTipText("Calculate Stability");
-		btnOther.setPreferredSize(new java.awt.Dimension(150, 30));
-		btnOther.setMaximumSize(new java.awt.Dimension(150, 30));
-		btnOther.setMargin(new java.awt.Insets(2, 2, 2, 2));
-		btnOther.setMinimumSize(new java.awt.Dimension(150, 30));
 
-				btnOther.addActionListener(new ActionListener() {
+		btnOther.addActionListener(new ActionListener() {
 
+		public void actionPerformed(ActionEvent evt) {
 
-				public void actionPerformed(ActionEvent evt) {
+			// check if their is something entered in the filepath
+			if(txtFileName.getText().length() > 1){
+				MetricCalculator metric;
+				try {
+					metric = new MetricCalculator(name);
+					
+					ap = new AppSummary();
+					// get handle on summary table model
+					TypeSummaryTableModel tm = ap.getTableModel();
 
-					// check if their is something entered in the filepath
-					if(txtFileName.getText().length() > 1){
-						MetricCalculator metric;
-						try {
-							metric = new MetricCalculator(name);
-							
-							ap = new AppSummary();
-							// get handle on summary table model
-							TypeSummaryTableModel tm = ap.getTableModel();
-
-							// add metric data into table model
-							tm.setTableData(metric.getData());
-							table.setModel(tm);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-					}
-					else {
-
-						System.out.println("No jar selected");
-					} 
+					// add metric data into table model
+					tm.setTableData(metric.getData());
+					table.setModel(tm);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			});
+				
+			}
+			else {
+
+				System.out.println("No jar selected");
+			} 
+		}
+	});
 		
-        
-		
+		mid.add(tableScroller = new JScrollPane(table));
+		tableScroller.setPreferredSize(new java.awt.Dimension(690, 300));
+		tableScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        table.setPreferredSize(new java.awt.Dimension(690, 300));
+        table.setMaximumSize(new java.awt.Dimension(690, 300));
+        table.setMinimumSize(new java.awt.Dimension(690, 300));
+            
+		frame.getContentPane().add(mid);
+				
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         bottom.setPreferredSize(new java.awt.Dimension(500, 50));
         bottom.setMaximumSize(new java.awt.Dimension(500, 50));
