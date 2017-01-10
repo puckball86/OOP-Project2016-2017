@@ -13,13 +13,19 @@ import java.util.Map;
 
 import javax.swing.JTextArea;
 
-
+/**
+ * 
+ * @author Dara Starr - G00209787
+ * This class is responsible for taking in a jar file and reading its classes.
+ */
 public class MetricCalculator{
 
 	private Map<String, Metric> graph = new HashMap();
 	private List<Class> jarClasses;
 	private String jar;
-	//instantiate jarReader
+/**
+ * Instantiate the JarReader
+ */
 	private JarReader jr = new JarReader();
 
 	public MetricCalculator(String jarFile) throws FileNotFoundException, IOException{
@@ -29,6 +35,9 @@ public class MetricCalculator{
 		calculateMetric();
 	}
 	
+	/**
+	 * Method to add Classes to the map when they are found
+	 */
 	public void addClassToMap(){
 		System.out.println("Adding Classes to Map!\n");
 		System.out.println("Classes to be Added:");
@@ -78,16 +87,20 @@ public class MetricCalculator{
 		return data;
 	}
 
+	/**
+	 * reflection method.
+	 * @param cls
+	 */
 	public void reflection(Class cls){
 		List<String> classList = new ArrayList<String>();
 		int outdegree = 0;
 
 		Class[] interfaces = cls.getInterfaces();
 		for(Class i : interfaces){
-			//System.out.println(i.getName());
+			
 			if(graph.containsKey(i.getName())) {
 				if(!classList.contains(i.getName())){
-					//System.out.println(i.getName());
+					
 					classList.add(i.getName());
 					outdegree++;
 					Metric m = graph.get(i.getName());
@@ -96,18 +109,21 @@ public class MetricCalculator{
 			}
 		}
 
-		Constructor[] cons = cls.getConstructors(); //Get the set of constructors
+		/**
+		 * Get the set of Constructors.
+		 */
+		Constructor[] cons = cls.getConstructors(); 
 		Class[] constructorParams;
 
 		for(Constructor c : cons){
 
 			constructorParams = c.getParameterTypes();
 			for(Class param : constructorParams){
-				//System.out.println(param.getName());
+				
 				if(graph.containsKey(param.getName())){
-					//System.out.println(param.getName());
+					
 					if(!classList.contains(param.getName())){
-						//System.out.println(param.getName());
+						
 						classList.add(param.getName());
 						outdegree++;
 						Metric m = graph.get(param.getName());
@@ -122,10 +138,10 @@ public class MetricCalculator{
 		for(Field f : fields)
 		{
 			Type type = f.getType();
-			//System.out.println(type.getTypeName());
+			
 			if(graph.containsKey(type.getTypeName())){
 				if(!classList.contains(type.getTypeName())){
-					//System.out.println(type.getTypeName());
+					
 					classList.add(type.getTypeName());
 					outdegree++;
 					Metric m = graph.get(type.getTypeName());
@@ -134,16 +150,19 @@ public class MetricCalculator{
 			}
 		}
 
-		Method[] methods = cls.getDeclaredMethods(); //Get the set of methods
+		/**
+		 * Get the set of methods
+		 */
+		Method[] methods = cls.getDeclaredMethods(); 
 		Class[] methodParams;
 
 		for(Method m : methods){
 
 			Class methodReturnType = m.getReturnType();
-			//System.out.println(methodReturnType.getName());
+			
 			if(graph.containsKey(methodReturnType.getName())){
 				if(!classList.contains(methodReturnType.getName())){
-					//System.out.println(methodReturnType.getName());
+					
 					classList.add(methodReturnType.getName());
 					outdegree++;
 					Metric mc = graph.get(methodReturnType.getName());
@@ -151,12 +170,15 @@ public class MetricCalculator{
 				}
 			}
 
-			methodParams = m.getParameterTypes(); //Get method parameters
+			/**
+			 * Get method parameters 
+			 */
+			methodParams = m.getParameterTypes(); 
 			for(Class mp : methodParams){
-				//System.out.println(mp.getName());
+				
 				if(graph.containsKey(mp.getName())){
 					if(!classList.contains(mp.getName())){
-						//System.out.println(mp.getName());
+						
 						classList.add(mp.getName());
 						outdegree++;
 						Metric bm = graph.get(mp.getName());

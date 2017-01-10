@@ -5,6 +5,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.table.*;
 
+/**
+ * 
+ * @author Dara Starr - G00209787
+ * Class used to create the table in which the data will be displayed.
+ * Extends JTable.
+ *
+ */
 public class AppSummary extends JTable{
 	private static final long serialVersionUID = 777L;	
 	private TypeSummaryTableModel tm = null;

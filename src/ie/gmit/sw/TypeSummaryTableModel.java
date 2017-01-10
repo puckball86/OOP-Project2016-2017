@@ -1,6 +1,13 @@
 package ie.gmit.sw;
 
 import javax.swing.table.AbstractTableModel;
+/**
+ * 
+ * @author Dara Starr - G00209787
+ * Class used to set up the table needed to display Class name,
+ * inDegree, outDegree and Stability
+ *
+ */
 
 public class TypeSummaryTableModel extends AbstractTableModel{
 	
@@ -9,22 +16,30 @@ public class TypeSummaryTableModel extends AbstractTableModel{
 	private Object[][] data = {
 		{"Stuff 1", "Other Stuff 1", "Even More Stuff 1", "even more more stuff"}
 	};
-	
+	/**
+	 * Sets the data for the table.
+	 * @param data
+	 */
 	public void setTableData(Object[][] data){
 
 	    this.data = data;
     }
 	
-
+	/**
+	 * Gets the number of columns.
+	 */
 	@Override
 	public int getColumnCount() {
-		// TODO Auto-generated method stub
+		
 		return cols.length;
 	}
 
+	/**
+	 * Gets the number of rows.
+	 */
 	@Override
 	public int getRowCount() {
-		// TODO Auto-generated method stub
+		
 		return data.length;
 	}
 	
@@ -34,7 +49,7 @@ public class TypeSummaryTableModel extends AbstractTableModel{
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		// TODO Auto-generated method stub
+		
 		return data[row][col];
 	}
 	

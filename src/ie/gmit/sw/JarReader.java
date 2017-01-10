@@ -13,7 +13,7 @@ import java.util.jar.JarInputStream;
 
 /**
  * 
- * @author Dara Starr
+ * @author Dara Starr - G00209787
  * This class is responsible for taking in a jar file and reading its classes.
  *
  */
@@ -24,7 +24,7 @@ public class JarReader {
 	public JarReader() {}
 
 	/**
-	 * Retrieves the jar from the specified jar
+	 * Retrieves the jar from the specified location
 	 * @return 
 	 * @throws FileNotFoundException
 	 * @throws IOException

@@ -1,7 +1,7 @@
 package ie.gmit.sw;
 
 /**
- * @author 
+ * @author Dara Starr - G00209787
  * 
  * The Main Application runner class
  */

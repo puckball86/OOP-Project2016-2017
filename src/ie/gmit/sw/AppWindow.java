@@ -19,6 +19,11 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
 
+/**
+ * @author Dara Starr - G00209787
+ * 
+ *GUI application window for running the Java program using JFrame.
+ */
 public class AppWindow {
 	private JFrame frame;
 	private String name;
@@ -26,7 +31,9 @@ public class AppWindow {
 	private JTable table = new JTable();
 
 	public AppWindow(){
-		//Create a window for the application
+		/**
+		 * Create a window for the application
+		 */
 		frame = new JFrame();
 		frame.setTitle("B.Sc. in Software Development - GMIT");
 		frame.setSize(750, 600);
@@ -35,7 +42,9 @@ public class AppWindow {
 		
 		JarReader jr = new JarReader();
 		
-        //The file panel will contain the file chooser
+        /**
+         * This file panel will contain the file chooser
+         */
         JPanel top = new JPanel(new FlowLayout(FlowLayout.LEADING));
         top.setBorder(new javax.swing.border.TitledBorder("Select Jar File"));
         top.setPreferredSize(new java.awt.Dimension(725, 150));
@@ -47,7 +56,9 @@ public class AppWindow {
 		txtFileName.setMaximumSize(new java.awt.Dimension(100, 30));
 		txtFileName.setMargin(new java.awt.Insets(2, 2, 2, 2));
 		txtFileName.setMinimumSize(new java.awt.Dimension(100, 30));
-		
+		/**
+		 * Button to open file explorer
+		 */
 		JButton btnChooseFile = new JButton("Browse...");
 		btnChooseFile.setToolTipText("Select Jar File");
         btnChooseFile.setPreferredSize(new java.awt.Dimension(90, 30));
