@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -106,7 +107,7 @@ public class AppWindow {
 		public void actionPerformed(ActionEvent evt) {
 
 			// check if their is something entered in the filepath
-			if(txtFileName.getText().length() > 1){
+			if(name.endsWith(".jar")){
 				MetricCalculator metric;
 				try {
 					metric = new MetricCalculator(name);
@@ -127,6 +128,7 @@ public class AppWindow {
 			else {
 
 				System.out.println("No jar selected");
+				JOptionPane.showMessageDialog(null, ".jar file not selected");
 			} 
 		}
 	});
